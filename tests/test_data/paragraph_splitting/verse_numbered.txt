@@ -1,0 +1,5 @@
+1. This is the first verse of the text. It contains important information that should be preserved.
+2. The second verse continues the thought from the first verse. These verses are related and should be grouped together.
+3. Verse three adds more context to the previous verses. The algorithm should recognize these as a single paragraph.
+4. Another verse that continues the narrative. Verse numbering should not trigger paragraph breaks.
+5. The final verse in this section. All verses should be grouped into one or two paragraphs, not five separate ones.

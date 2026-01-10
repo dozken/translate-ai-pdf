@@ -1,0 +1,13 @@
+Chapter 1: Introduction
+
+This is the introduction paragraph. It follows a chapter heading. The heading should be preserved but the paragraph should be grouped with it.
+
+Section 1.1: Overview
+
+The overview section contains important information. It has multiple sentences that form a coherent paragraph. The section heading should be handled appropriately.
+
+1. First point in a numbered list. This should be grouped with other list items.
+2. Second point continues the list. These items are related.
+3. Third point completes the list. All points should be in one paragraph.
+
+Regular paragraph text follows the list. It continues the discussion from the previous section.

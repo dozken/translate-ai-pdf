@@ -1,0 +1,374 @@
+{
+  "well_formatted.txt": [
+    {
+      "approach": "Current Implementation",
+      "count": 3,
+      "avg_size": 135.0,
+      "min_size": 121,
+      "max_size": 146,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 98.8,
+      "time_ms": 0.13,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 3,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "LangChain Style",
+      "success": false,
+      "error": "empty separator",
+      "time_ms": 0.02,
+      "size_distribution": {}
+    },
+    {
+      "approach": "Conservative",
+      "count": 3,
+      "avg_size": 135.0,
+      "min_size": 121,
+      "max_size": 146,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 98.8,
+      "time_ms": 0.04,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 3,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Size Focused",
+      "count": 1,
+      "avg_size": 407.0,
+      "min_size": 407,
+      "max_size": 407,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.3,
+      "time_ms": 0.03,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 1,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Verse Aware",
+      "count": 3,
+      "avg_size": 135.0,
+      "min_size": 121,
+      "max_size": 146,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 98.8,
+      "time_ms": 0.06,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 3,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    }
+  ],
+  "large_single_paragraph.txt": [
+    {
+      "approach": "Current Implementation",
+      "count": 1,
+      "avg_size": 1678.0,
+      "min_size": 1678,
+      "max_size": 1678,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.9,
+      "time_ms": 0.13,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 1,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "LangChain Style",
+      "success": false,
+      "error": "empty separator",
+      "time_ms": 0.06,
+      "size_distribution": {}
+    },
+    {
+      "approach": "Conservative",
+      "count": 1,
+      "avg_size": 1678.0,
+      "min_size": 1678,
+      "max_size": 1678,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.9,
+      "time_ms": 0.12,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 1,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Size Focused",
+      "count": 1,
+      "avg_size": 1678.0,
+      "min_size": 1678,
+      "max_size": 1678,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.9,
+      "time_ms": 0.09,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 1,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Verse Aware",
+      "count": 1,
+      "avg_size": 1678.0,
+      "min_size": 1678,
+      "max_size": 1678,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.9,
+      "time_ms": 0.08,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 1,
+        "huge (> 2000)": 0
+      }
+    }
+  ],
+  "verse_numbered.txt": [
+    {
+      "approach": "Current Implementation",
+      "count": 1,
+      "avg_size": 554.0,
+      "min_size": 554,
+      "max_size": 554,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.8,
+      "time_ms": 0.05,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 1,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "LangChain Style",
+      "success": false,
+      "error": "empty separator",
+      "time_ms": 0.06,
+      "size_distribution": {}
+    },
+    {
+      "approach": "Conservative",
+      "count": 1,
+      "avg_size": 554.0,
+      "min_size": 554,
+      "max_size": 554,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.8,
+      "time_ms": 0.26,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 1,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Size Focused",
+      "count": 1,
+      "avg_size": 554.0,
+      "min_size": 554,
+      "max_size": 554,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.8,
+      "time_ms": 1.12,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 1,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Verse Aware",
+      "count": 1,
+      "avg_size": 554.0,
+      "min_size": 554,
+      "max_size": 554,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 99.8,
+      "time_ms": 0.5,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 1,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    }
+  ],
+  "mixed_formatting.txt": [
+    {
+      "approach": "Current Implementation",
+      "count": 3,
+      "avg_size": 205.3,
+      "min_size": 142,
+      "max_size": 311,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 91.9,
+      "time_ms": 0.96,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 3,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "LangChain Style",
+      "success": false,
+      "error": "empty separator",
+      "time_ms": 0.06,
+      "size_distribution": {}
+    },
+    {
+      "approach": "Conservative",
+      "count": 3,
+      "avg_size": 205.3,
+      "min_size": 142,
+      "max_size": 311,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 91.9,
+      "time_ms": 0.6,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 3,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Size Focused",
+      "count": 1,
+      "avg_size": 618.0,
+      "min_size": 618,
+      "max_size": 618,
+      "over_segmented": 0,
+      "under_segmented": 0,
+      "over_segmented_rate": 0.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 92.2,
+      "time_ms": 0.04,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 0,
+        "small (100-500)": 0,
+        "medium (500-1500)": 1,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    },
+    {
+      "approach": "Verse Aware",
+      "count": 4,
+      "avg_size": 153.8,
+      "min_size": 95,
+      "max_size": 215,
+      "over_segmented": 1,
+      "under_segmented": 0,
+      "over_segmented_rate": 25.0,
+      "under_segmented_rate": 0.0,
+      "coverage": 91.8,
+      "time_ms": 0.04,
+      "success": true,
+      "size_distribution": {
+        "tiny (< 100)": 1,
+        "small (100-500)": 3,
+        "medium (500-1500)": 0,
+        "large (1500-2000)": 0,
+        "huge (> 2000)": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+This is the first paragraph of a well-formatted document. It has clear paragraph breaks using double newlines. The content is properly structured.
+
+This is the second paragraph. It is separated from the first by a clear break. The formatting is clean and easy to parse.
+
+The third paragraph continues the document. Each paragraph is distinct and well-separated. This is the ideal case for paragraph splitting.

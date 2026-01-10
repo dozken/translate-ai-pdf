@@ -1,0 +1,51 @@
+# Environment variables
+.env
+.env.local
+
+# Old setup script (contains API keys - use .env instead)
+setup_env.sh
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Generated files and test outputs
+test_translation_output.pdf
+test_*.pdf
+translated_*.pdf
+
+
+# Node
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Generated output
+output/
+
+# Database
+*.db
+*.db-shm
+*.db-wal

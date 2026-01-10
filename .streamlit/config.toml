@@ -1,0 +1,9 @@
+[browser]
+# Don't automatically open the browser when Streamlit starts
+gatherUsageStats = false
+
+[server]
+# Run in headless mode (don't auto-open browser)
+headless = true
+
+
