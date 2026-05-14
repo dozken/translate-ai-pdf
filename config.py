@@ -23,7 +23,7 @@ class Config:
     # Translation Settings
     SOURCE_LANGUAGE: str = os.getenv("SOURCE_LANGUAGE", "Arabic")
     TARGET_LANGUAGE: str = os.getenv("TARGET_LANGUAGE", "Russian")
-    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3-pro")
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-3.1-pro-preview")
     
     # Performance Settings
     MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "3"))

@@ -59,9 +59,9 @@ test-api-key: ## Test if Google API key is valid
 		exit 1; \
 	fi
 	@if [ -d "$(VENV_DIR)" ] && [ -f "$(VENV_DIR)/bin/python" ]; then \
-		$(VENV_DIR)/bin/python test_api_key.py; \
+		$(VENV_DIR)/bin/python tests/test_api_key.py; \
 	elif command -v python3 > /dev/null 2>&1; then \
-		python3 test_api_key.py; \
+		python3 tests/test_api_key.py; \
 	else \
 		echo "$(RED)Error: Python not found. Run 'make setup' first$(NC)"; \
 		exit 1; \
@@ -73,9 +73,9 @@ test-translation: ## Run translation test
 		exit 1; \
 	fi
 	@if [ -d "$(VENV_DIR)" ] && [ -f "$(VENV_DIR)/bin/python" ]; then \
-		$(VENV_DIR)/bin/python test_translation.py; \
+		$(VENV_DIR)/bin/python tests/test_translation.py; \
 	elif command -v python3 > /dev/null 2>&1; then \
-		python3 test_translation.py; \
+		python3 tests/test_translation.py; \
 	else \
 		echo "$(RED)Error: Python not found. Run 'make setup' first$(NC)"; \
 		exit 1; \
