@@ -1,6 +1,7 @@
 """
 Constants and configuration values for LLM Translation Cost Calculator.
 """
+
 # Streamlit page configuration
 PAGE_LAYOUT: str = "wide"
 
@@ -20,5 +21,3 @@ PROVIDER_KEYS = {
     "GOOGLE_GEMINI": "google_gemini",
     "DEEPL": "deepl",
 }
-
-

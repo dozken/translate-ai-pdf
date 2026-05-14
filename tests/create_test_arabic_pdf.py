@@ -2,8 +2,10 @@
 Standalone script to create a test PDF with Arabic text.
 This script does not modify the main application code.
 """
+
 import os
 from pathlib import Path
+
 from utils.pdf_generator import create_pdf_from_text
 
 # Two paragraphs of Arabic text
@@ -32,14 +34,15 @@ try:
         source_lang="Arabic",
         target_lang="Arabic",
         metadata={"original_filename": "test_arabic.txt"},
-        include_metadata=False
+        include_metadata=False,
     )
-    
-    print(f"✅ PDF created successfully!")
+
+    print("✅ PDF created successfully!")
     print(f"   Location: {result_path}")
     print(f"   File size: {os.path.getsize(result_path)} bytes")
-    
+
 except Exception as e:
     print(f"❌ Error creating PDF: {e}")
     import traceback
+
     traceback.print_exc()

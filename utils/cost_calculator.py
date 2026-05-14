@@ -1,8 +1,9 @@
 """
 Cost estimation utilities for different LLM providers.
 """
+
 import logging
-from typing import Dict, Optional
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,7 @@ PRICING = {
         "model": "GPT-5",
         "input_per_1m": 15.0,  # Estimated $15 per 1M input tokens (placeholder pricing)
         "output_per_1m": 45.0,  # Estimated $45 per 1M output tokens (placeholder pricing)
-        "note": "Estimated pricing - actual pricing TBD when GPT-5 is released"
+        "note": "Estimated pricing - actual pricing TBD when GPT-5 is released",
     },
     "anthropic_opus": {
         "provider": "Anthropic",
@@ -57,7 +58,7 @@ PRICING = {
         "model": "Gemini 3 Flash",
         "input_per_1m": 0.50,  # Estimated $0.50 per 1M input tokens (placeholder - model not yet released)
         "output_per_1m": 3.0,  # Estimated $3.00 per 1M output tokens (placeholder - model not yet released)
-        "note": "Estimated pricing - Gemini 3 Flash not yet released"
+        "note": "Estimated pricing - Gemini 3 Flash not yet released",
     },
     "google_gemini_25_flash": {
         "provider": "Google",
@@ -78,11 +79,11 @@ def estimate_output_tokens(input_tokens: int, output_ratio: float = 1.3) -> int:
     """
     Estimate output tokens based on input tokens.
     For translation, output is typically 1.2-1.5x the input.
-    
+
     Args:
         input_tokens: Number of input tokens
         output_ratio: Ratio of output to input (default 1.3 for translation)
-        
+
     Returns:
         Estimated output token count
     """
@@ -92,12 +93,12 @@ def estimate_output_tokens(input_tokens: int, output_ratio: float = 1.3) -> int:
 def calculate_costs(input_tokens: int, provider_key: str, output_ratio: float = 1.3) -> Dict:
     """
     Calculate cost estimates for a given provider and token count.
-    
+
     Args:
         input_tokens: Number of input tokens
         provider_key: Provider key (e.g., 'openai_gpt4')
         output_ratio: Ratio of output to input tokens (default 1.3)
-        
+
     Returns:
         Dictionary with cost breakdown:
         {
@@ -110,20 +111,22 @@ def calculate_costs(input_tokens: int, provider_key: str, output_ratio: float = 
             "total_cost": 0.049
         }
     """
-    logger.debug(f"Calculating costs for {provider_key}: {input_tokens} input tokens, ratio={output_ratio}")
-    
+    logger.debug(
+        f"Calculating costs for {provider_key}: {input_tokens} input tokens, ratio={output_ratio}"
+    )
+
     if provider_key not in PRICING:
         logger.error(f"Unknown provider key: {provider_key}")
         raise ValueError(f"Unknown provider key: {provider_key}")
-    
+
     pricing = PRICING[provider_key]
     output_tokens = estimate_output_tokens(input_tokens, output_ratio)
-    
+
     # Calculate costs
     input_cost = (input_tokens / 1_000_000) * pricing["input_per_1m"]
     output_cost = (output_tokens / 1_000_000) * pricing["output_per_1m"]
     total_cost = input_cost + output_cost
-    
+
     result = {
         "provider": pricing["provider"],
         "model": pricing["model"],
@@ -134,12 +137,14 @@ def calculate_costs(input_tokens: int, provider_key: str, output_ratio: float = 
         "output_cost": output_cost,
         "total_cost": total_cost,
     }
-    
+
     # Pass through note if present
     if "note" in pricing:
         result["note"] = pricing["note"]
-    
-    logger.debug(f"Cost calculation result for {provider_key}: ${total_cost:.4f} total (input: ${input_cost:.4f}, output: ${output_cost:.4f})")
+
+    logger.debug(
+        f"Cost calculation result for {provider_key}: ${total_cost:.4f} total (input: ${input_cost:.4f}, output: ${output_cost:.4f})"
+    )
     return result
 
 
@@ -147,17 +152,17 @@ def calculate_all_provider_costs(token_counts: Dict[str, Dict[str, any]]) -> lis
     """
     Calculate costs for all providers based on their token counts.
     Skips providers with errors or zero tokens.
-    
+
     Args:
         token_counts: Dictionary from calculate_all_provider_tokens()
-        
+
     Returns:
         List of cost dictionaries, sorted by total cost
     """
     logger.debug(f"Calculating costs for {len(token_counts)} providers")
     costs = []
     skipped = 0
-    
+
     for provider_key, token_data in token_counts.items():
         # Skip if there's an error or no tokens
         if "error" in token_data or token_data.get("tokens", 0) == 0:
@@ -167,24 +172,27 @@ def calculate_all_provider_costs(token_counts: Dict[str, Dict[str, any]]) -> lis
             else:
                 logger.debug(f"Skipping {provider_key} - zero tokens")
             continue
-            
+
         input_tokens = token_data["tokens"]
         cost_data = calculate_costs(input_tokens, provider_key)
-        
+
         # Add exact/approximate flag
         cost_data["exact"] = token_data.get("exact", False)
         if "note" in token_data:
             cost_data["note"] = token_data["note"]
-        
+
         costs.append(cost_data)
-    
+
     # Sort by total cost (cheapest first)
     costs.sort(key=lambda x: x["total_cost"])
-    
+
     logger.info(f"Cost calculation completed: {len(costs)} providers calculated, {skipped} skipped")
     if costs:
-        logger.info(f"Cheapest option: {costs[0]['provider']} {costs[0]['model']} at ${costs[0]['total_cost']:.4f}")
-        logger.info(f"Most expensive: {costs[-1]['provider']} {costs[-1]['model']} at ${costs[-1]['total_cost']:.4f}")
-    
-    return costs
+        logger.info(
+            f"Cheapest option: {costs[0]['provider']} {costs[0]['model']} at ${costs[0]['total_cost']:.4f}"
+        )
+        logger.info(
+            f"Most expensive: {costs[-1]['provider']} {costs[-1]['model']} at ${costs[-1]['total_cost']:.4f}"
+        )
 
+    return costs

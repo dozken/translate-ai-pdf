@@ -2,13 +2,11 @@
 Translation module for multi-language support.
 Provides English (default) and Russian translations for the UI.
 """
+
 from typing import Dict
 
 # Available languages
-LANGUAGES = {
-    "en": "English",
-    "ru": "Русский"
-}
+LANGUAGES = {"en": "English", "ru": "Русский"}
 
 # Default language
 DEFAULT_LANGUAGE = "en"
@@ -19,23 +17,19 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         # Page configuration
         "page_title": "PDF Translation Cost Calculator",
         "page_icon": "📚",
-        
         # Main UI
         "upload_prompt": "Upload an Arabic PDF book to calculate translation costs across multiple LLM providers.",
         "choose_pdf_file": "Choose a PDF file",
         "upload_help": "Upload a single PDF file for translation cost estimation",
-        
         # Sidebar
         "sidebar_settings": "Settings",
         "sidebar_info": "Upload a PDF file to get started. The app will calculate token counts and cost estimates for translation to Russian.",
         "token_counting": "Token Counting",
         "token_counting_info": "✅ All token counting is **100% free** and done locally. No API keys or credits required!",
         "token_counting_note": "Token counts use free local calculations. OpenAI and DeepL are exact; Anthropic and Google are close approximations.",
-        
         # Language selector
         "language": "Language",
         "select_language": "Select Language",
-        
         # Processing messages
         "extracting_text": "Extracting text from PDF...",
         "pdf_processed": "✅ PDF processed successfully!",
@@ -44,14 +38,12 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "words": "Words",
         "calculating_tokens": "Calculating token counts for all providers (free, local calculation)...",
         "calculating_costs": "Calculating cost estimates...",
-        
         # Token counts section
         "token_counts_title": "📊 Token Counts by Provider",
         "token_counts_caption": "All calculations are free and done locally. OpenAI models are exact; others are close approximations.",
         "exact": "✅ Exact",
         "approximate": "⚠️ Approximate",
         "error": "Error",
-        
         # Cost comparison section
         "cost_comparison_title": "💰 Cost Comparison",
         "cost_comparison_caption": "Estimated costs for translating the entire document (Arabic → Russian)",
@@ -64,7 +56,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "total_cost": "Total Cost ($)",
         "cheapest_option": "💡 **Cheapest option**: {provider} {model} at **${cost}**",
         "cost_range": "Cost range: ${min} - ${max} (difference: ${diff})",
-        
         # Translation section
         "translate_title": "🚀 Translate with Selected LLM",
         "translate_with": "Translate with {model}",
@@ -83,7 +74,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "translating_paragraph": "🔄 Translating paragraph {current} of {total}...",
         "generating_pdf": "📄 Generating PDF...",
         "translation_completed": "✅ Translation completed successfully!",
-        
         # Translation results
         "translation_results_title": "📄 Translation Results",
         "pdf_saved_to": "📁 PDF saved to: `{path}`",
@@ -91,7 +81,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "pdf_saved_tip": "💡 Tip: Set `PDF_OUTPUT_DIR` in your `.env` file to save PDFs to a custom location",
         "preview_label": "Preview (first 500 characters):",
         "download_pdf": "📥 Download Translated PDF",
-        
         # Error messages
         "no_text_extracted": "No text could be extracted from the PDF. The file might be image-based or corrupted.",
         "api_key_missing": "API key not found. Please set the required API key in your `.env` file.",
@@ -118,7 +107,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "permission_denied": "💡 Permission denied. Make sure the file is not open in another application.",
         "technical_details": "🔍 Technical Details",
         "not_implemented_info": "🚧 Translation with **{provider} {model}** is not yet implemented. This feature will be added soon! Estimated cost: ${cost}",
-        
         # No file uploaded
         "no_file_uploaded": "👆 Please upload a PDF file to get started.",
         "how_to_use": "How to use this app",
@@ -128,7 +116,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "how_to_4": "4. **Compare Costs**: Review the cost comparison table to see pricing for each provider",
         "how_to_5": "5. **Select Provider**: Choose your preferred LLM and click the translate button (coming soon)",
         "how_to_note": "**Note**: Token counting is free and happens locally. You only pay when you actually translate.",
-        
         # Additional UI elements
         "sidebar_language_title": "Language",
         "sidebar_about_title": "About",
@@ -167,7 +154,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "features_pdf_1": "Professional formatting",
         "features_pdf_2": "Preserved structure",
         "features_pdf_3": "Ready to download",
-        
         # Metrics and stats
         "metric_start_time": "Start Time",
         "metric_end_time": "End Time",
@@ -191,7 +177,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "translation_preview_title": "Translation Preview",
         "waiting_for_translation": "Waiting for translation to start...",
         "preview_help_text": "First 1000 characters of the translated text",
-        
         # Progress and resume
         "progress_found": "Found existing translation progress",
         "progress_status": "{completed} of {total} paragraphs translated ({percent}%)",
@@ -213,23 +198,19 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         # Page configuration
         "page_title": "Калькулятор стоимости перевода PDF",
         "page_icon": "📚",
-        
         # Main UI
         "upload_prompt": "Загрузите арабскую PDF-книгу для расчета стоимости перевода с помощью различных LLM-провайдеров.",
         "choose_pdf_file": "Выберите PDF файл",
         "upload_help": "Загрузите один PDF файл для оценки стоимости перевода",
-        
         # Sidebar
         "sidebar_settings": "Настройки",
         "sidebar_info": "Загрузите PDF файл, чтобы начать. Приложение рассчитает количество токенов и оценку стоимости перевода на русский язык.",
         "token_counting": "Подсчет токенов",
         "token_counting_info": "✅ Весь подсчет токенов **на 100% бесплатный** и выполняется локально. API ключи или кредиты не требуются!",
         "token_counting_note": "Подсчет токенов использует бесплатные локальные вычисления. OpenAI и DeepL точные; Anthropic и Google - приблизительные.",
-        
         # Language selector
         "language": "Язык",
         "select_language": "Выберите язык",
-        
         # Processing messages
         "extracting_text": "Извлечение текста из PDF...",
         "pdf_processed": "✅ PDF успешно обработан!",
@@ -238,14 +219,12 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "words": "Слов",
         "calculating_tokens": "Расчет количества токенов для всех провайдеров (бесплатно, локальный расчет)...",
         "calculating_costs": "Расчет стоимости...",
-        
         # Token counts section
         "token_counts_title": "📊 Количество токенов по провайдерам",
         "token_counts_caption": "Все расчеты бесплатны и выполняются локально. Модели OpenAI точные; остальные - приблизительные.",
         "exact": "✅ Точный",
         "approximate": "⚠️ Приблизительный",
         "error": "Ошибка",
-        
         # Cost comparison section
         "cost_comparison_title": "💰 Сравнение стоимости",
         "cost_comparison_caption": "Ориентировочная стоимость перевода всего документа (Арабский → Русский)",
@@ -258,7 +237,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "total_cost": "Общая стоимость ($)",
         "cheapest_option": "💡 **Самый дешевый вариант**: {provider} {model} за **${cost}**",
         "cost_range": "Диапазон стоимости: ${min} - ${max} (разница: ${diff})",
-        
         # Translation section
         "translate_title": "🚀 Перевод с выбранным LLM",
         "translate_with": "Перевести с {model}",
@@ -277,7 +255,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "translating_paragraph": "🔄 Перевод абзаца {current} из {total}...",
         "generating_pdf": "📄 Создание PDF...",
         "translation_completed": "✅ Перевод успешно завершен!",
-        
         # Translation results
         "translation_results_title": "📄 Результаты перевода",
         "pdf_saved_to": "📁 PDF сохранен в: `{path}`",
@@ -285,7 +262,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "pdf_saved_tip": "💡 Совет: Установите `PDF_OUTPUT_DIR` в файле `.env`, чтобы сохранять PDF в пользовательскую директорию",
         "preview_label": "Предпросмотр (первые 500 символов):",
         "download_pdf": "📥 Скачать переведенный PDF",
-        
         # Error messages
         "no_text_extracted": "Не удалось извлечь текст из PDF. Файл может быть основан на изображениях или поврежден.",
         "api_key_missing": "API ключ не найден. Пожалуйста, установите необходимый API ключ в файле `.env`.",
@@ -312,7 +288,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "permission_denied": "💡 Доступ запрещен. Убедитесь, что файл не открыт в другом приложении.",
         "technical_details": "🔍 Технические детали",
         "not_implemented_info": "🚧 Перевод с **{provider} {model}** еще не реализован. Эта функция будет добавлена в ближайшее время! Ориентировочная стоимость: ${cost}",
-        
         # No file uploaded
         "no_file_uploaded": "👆 Пожалуйста, загрузите PDF файл, чтобы начать.",
         "how_to_use": "Как использовать это приложение",
@@ -322,7 +297,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "how_to_4": "4. **Сравните стоимость**: Просмотрите таблицу сравнения стоимости, чтобы увидеть цены для каждого провайдера",
         "how_to_5": "5. **Выберите провайдера**: Выберите предпочитаемый LLM и нажмите кнопку перевода (скоро)",
         "how_to_note": "**Примечание**: Подсчет токенов бесплатный и выполняется локально. Вы платите только при фактическом переводе.",
-        
         # Additional UI elements
         "sidebar_language_title": "Язык",
         "sidebar_about_title": "О приложении",
@@ -361,7 +335,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "features_pdf_1": "Профессиональное форматирование",
         "features_pdf_2": "Сохраненная структура",
         "features_pdf_3": "Готово к скачиванию",
-        
         # Metrics and stats
         "metric_start_time": "Время начала",
         "metric_end_time": "Время окончания",
@@ -385,7 +358,6 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "translation_preview_title": "Предпросмотр перевода",
         "waiting_for_translation": "Ожидание начала перевода...",
         "preview_help_text": "Первые 1000 символов переведенного текста",
-        
         # Progress and resume
         "progress_found": "Найден существующий прогресс перевода",
         "progress_status": "{completed} из {total} абзацев переведено ({percent}%)",
@@ -402,27 +374,27 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
         "resume_translation_button": "▶️ Продолжить перевод",
         "translation_stopped": "⏸️ Перевод остановлен",
         "translation_stopped_message": "Перевод был остановлен. Прогресс сохранен. Вы можете продолжить с того места, где остановились.",
-    }
+    },
 }
 
 
 def get_translation(key: str, language: str = DEFAULT_LANGUAGE, **kwargs) -> str:
     """
     Get a translated string for the given key and language.
-    
+
     Args:
         key: Translation key
         language: Language code (default: 'en')
         **kwargs: Format arguments for the translation string
-        
+
     Returns:
         Translated string with format arguments applied
     """
     if language not in TRANSLATIONS:
         language = DEFAULT_LANGUAGE
-    
+
     translation = TRANSLATIONS[language].get(key, TRANSLATIONS[DEFAULT_LANGUAGE].get(key, key))
-    
+
     # Format the string if kwargs are provided
     if kwargs:
         try:
@@ -430,21 +402,21 @@ def get_translation(key: str, language: str = DEFAULT_LANGUAGE, **kwargs) -> str
         except KeyError:
             # If formatting fails, return the translation as-is
             return translation
-    
+
     return translation
 
 
 def get_all_translations(language: str = DEFAULT_LANGUAGE) -> Dict[str, str]:
     """
     Get all translations for a given language.
-    
+
     Args:
         language: Language code (default: 'en')
-        
+
     Returns:
         Dictionary of all translations for the language
     """
     if language not in TRANSLATIONS:
         language = DEFAULT_LANGUAGE
-    
+
     return TRANSLATIONS[language].copy()
