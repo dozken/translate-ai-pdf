@@ -461,6 +461,85 @@ def split_into_paragraphs(
     return final_paragraphs
 
 
+# Gemini finish_reason values that indicate a complete, usable response.
+# Anything else means the output was truncated or filtered and must NOT be saved as-is.
+_FINISH_REASON_OK = {1}  # 1 == STOP (normal completion)
+
+
+class IncompleteTranslationError(Exception):
+    """Raised when Gemini returns a truncated or filtered (non-STOP) response."""
+
+    pass
+
+
+def _finish_reason_name(reason) -> str:
+    """Best-effort human-readable name for a Gemini finish_reason."""
+    names = {
+        0: "UNSPECIFIED",
+        1: "STOP",
+        2: "MAX_TOKENS",
+        3: "SAFETY",
+        4: "RECITATION",
+        5: "OTHER",
+    }
+    try:
+        value = int(reason)
+    except (TypeError, ValueError):
+        return str(reason)
+    return names.get(value, str(value))
+
+
+def _check_finish_reason(response) -> None:
+    """
+    Raise IncompleteTranslationError if the response did not finish normally.
+
+    Catches MAX_TOKENS truncation and SAFETY/RECITATION filtering, which are the
+    main causes of '...' artifacts and silently truncated paragraphs.
+    """
+    try:
+        candidate = response.candidates[0]
+        reason = candidate.finish_reason
+    except (AttributeError, IndexError):
+        return  # No candidate metadata available; let text checks handle it.
+
+    try:
+        reason_value = int(reason)
+    except (TypeError, ValueError):
+        return
+
+    if reason_value not in _FINISH_REASON_OK:
+        name = _finish_reason_name(reason_value)
+        raise IncompleteTranslationError(
+            f"Gemini returned non-STOP finish_reason={name}. "
+            "Output truncated or filtered (likely MAX_TOKENS or RECITATION)."
+        )
+
+
+def _normalize_translation(text: str, target_lang: str) -> str:
+    """
+    Clean a raw translation: strip prompt echoes, collapse internal newlines so one
+    source paragraph maps to one output paragraph, and flag recitation '...' artifacts.
+    """
+    translated = text.strip()
+    if translated.startswith(f"{target_lang} translation:"):
+        translated = translated.replace(f"{target_lang} translation:", "").strip()
+    if translated.startswith("Translation:"):
+        translated = translated.replace("Translation:", "").strip()
+
+    # Collapse internal newlines -> single space so downstream PDF generation does
+    # not split one source paragraph into multiple paragraphs.
+    translated = re.sub(r"\s*\n\s*", " ", translated).strip()
+
+    # Recitation/truncation signature: runs of 4+ dots (the user's reported artifact).
+    # A normal 3-dot ellipsis is left alone to avoid false positives on real prose.
+    if re.search(r"\.{4,}", translated):
+        raise IncompleteTranslationError(
+            "Translation contains '....' run — likely recitation filter or truncation."
+        )
+
+    return translated
+
+
 def translate_paragraph_gemini(
     paragraph: str,
     api_key: str,
@@ -524,12 +603,16 @@ def translate_paragraph_gemini(
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel(model_name)
 
-        # Generation config for better translation accuracy
-        # Temperature=0 for fully deterministic, most accurate translations
+        # Generation config for better translation accuracy.
+        # Temperature slightly > 0: pure 0 makes the model lock onto memorized
+        # ("recited") text for religious/classical sources, triggering the
+        # recitation filter and '...' artifacts. 0.3 reduces that without losing fidelity.
+        # max_output_tokens set high so long paragraphs are not truncated (MAX_TOKENS).
         generation_config = genai.GenerationConfig(
-            temperature=0.0,  # Zero temperature for fully deterministic, most accurate translations
+            temperature=0.3,
             top_p=0.95,  # Nucleus sampling for focused responses
             top_k=40,  # Limit vocabulary choices for consistency
+            max_output_tokens=8192,
         )
 
         # Create translation prompt with improved instructions for accuracy
@@ -560,8 +643,10 @@ Instructions:
                     )
                     accumulated = ""
 
+                    last_chunk = None
                     try:
                         for chunk in response:
+                            last_chunk = chunk
                             try:
                                 chunk_text = chunk.text
                             except Exception:
@@ -580,15 +665,13 @@ Instructions:
                                     except Exception as callback_error:
                                         logger.warning(f"Stream callback error: {callback_error}")
 
+                        # Reject truncated/filtered responses (MAX_TOKENS, RECITATION, SAFETY)
+                        # before treating the partial text as a successful translation.
+                        if last_chunk is not None:
+                            _check_finish_reason(last_chunk)
+
                         if accumulated:
-                            translated = accumulated.strip()
-                            # Remove any potential prefix/suffix that model might add
-                            if translated.startswith(f"{target_lang} translation:"):
-                                translated = translated.replace(
-                                    f"{target_lang} translation:", ""
-                                ).strip()
-                            if translated.startswith("Translation:"):
-                                translated = translated.replace("Translation:", "").strip()
+                            translated = _normalize_translation(accumulated, target_lang)
                             logger.debug(
                                 f"Streaming translation successful: {len(translated)} characters"
                             )
@@ -596,6 +679,8 @@ Instructions:
                         else:
                             logger.warning("Empty response from Gemini API (streaming)")
                             raise ValueError("Empty response from Gemini API")
+                    except IncompleteTranslationError:
+                        raise  # Let retry logic handle truncation/recitation.
                     except Exception as stream_error:
                         # If streaming fails, log and fall back to non-streaming
                         logger.warning(
@@ -608,15 +693,11 @@ Instructions:
                     # Non-streaming mode (original implementation)
                     response = model.generate_content(prompt, generation_config=generation_config)
 
+                    # Reject truncated/filtered responses before using the text.
+                    _check_finish_reason(response)
+
                     if response and response.text:
-                        translated = response.text.strip()
-                        # Remove any potential prefix/suffix that model might add
-                        if translated.startswith(f"{target_lang} translation:"):
-                            translated = translated.replace(
-                                f"{target_lang} translation:", ""
-                            ).strip()
-                        if translated.startswith("Translation:"):
-                            translated = translated.replace("Translation:", "").strip()
+                        translated = _normalize_translation(response.text, target_lang)
                         logger.debug(f"Translation successful: {len(translated)} characters")
                         return translated
                     else:
@@ -965,7 +1046,7 @@ def translate_text_gemini(
                 except Exception as e:
                     # Individual task errors are handled inside process_paragraph,
                     # but if something escapes, catch it here.
-                    logger.error(f"Unexpected error in thread for para {idx+1}: {e}")
+                    logger.error(f"Unexpected error in thread for para {idx + 1}: {e}")
 
     except TranslationStoppedException as e:
         logger.info(f"Translation stopped: {e}")
