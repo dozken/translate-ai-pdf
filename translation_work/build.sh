@@ -15,7 +15,7 @@ pandoc book.md -o Hizmetin_Esaslari_RU.pdf \
   --top-level-division=part \
   --toc --toc-depth=1 \
   -H preamble.tex \
-  -V documentclass=book -V fontsize=12pt -V mainfont="PT Serif" \
+  -V documentclass=book -V classoption=oneside -V fontsize=12pt -V mainfont="PT Serif" \
   -V geometry:a4paper \
   -V geometry:top=24mm -V geometry:bottom=22mm -V geometry:left=26mm -V geometry:right=26mm \
   -M lang=ru \
