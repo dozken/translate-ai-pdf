@@ -49,3 +49,12 @@ output/
 *.db
 *.db-shm
 *.db-wal
+
+# Translated book content — copyrighted source text & output. DO NOT PUBLISH.
+# (the resumable-translation tooling in translation_work/ is committed; the book is not)
+translation_work/*.md
+translation_work/*.pdf
+translation_work/paragraphs.json
+translation_work/source_raw.txt
+translation_work/state.json
+translation_work/batch_in.json

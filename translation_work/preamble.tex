@@ -1,0 +1,36 @@
+% Font, language, geometry are supplied by pandoc -V/-M (correct load order).
+% This preamble only handles structure & heading look.
+
+\linespread{1.15}
+
+% Fallback font for stray Arabic glyphs (PT Serif has no Arabic block).
+% Arabic runs are wrapped in \AR{...} by build_pdf.py.
+\newfontfamily\arabicfallback{Geeza Pro}
+\newcommand{\AR}[1]{{\arabicfallback #1}}
+
+% No auto numbers at all — titles carry their own "1.", "A.", "РАЗДЕЛ 1" etc.
+% (-2 also suppresses \part numbering "I/II")
+\setcounter{secnumdepth}{-2}
+
+% ---- Heading look ----
+\usepackage{titlesec}
+\titleformat{\part}[display]{\normalfont\huge\bfseries\centering}{}{0pt}{\Huge}
+\titleformat{\chapter}[display]{\normalfont\bfseries\centering}{}{0pt}{\Large}
+\titlespacing*{\chapter}{0pt}{30pt}{26pt}
+\titleformat{\section}{\normalfont\bfseries\itshape}{}{0pt}{}
+\titlespacing*{\section}{0pt}{12pt}{4pt}
+
+% ---- Spaced-block paragraphs (no indent) ----
+\usepackage{parskip}
+
+% ---- TOC: dotted leaders for chapters, drop empty number column ----
+\usepackage{tocloft}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftchappresnum}{}
+\setlength{\cftchapnumwidth}{0pt}
+\setlength{\cftpartnumwidth}{0pt}
+\renewcommand{\cftpartpresnum}{}
+% only parts + chapters in TOC (no inline subheads); set after polyglossia too
+\AtBeginDocument{\setcounter{tocdepth}{0}\renewcommand{\contentsname}{СОДЕРЖАНИЕ}}
