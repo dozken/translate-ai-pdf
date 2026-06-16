@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
-"""Re-tier flat ## headings into part/chapter/subhead, build book.md for pandoc."""
+"""Re-tier flat ## headings into part/chapter/subhead, build book.md for pandoc.
+
+Also converts inline citation blockquotes into real (bottom-of-page) footnotes:
+each superscript body marker becomes a pandoc footnote reference [^fnN] and the
+citation text (from footnotes.json, keyed by N) becomes its definition. The
+citation text lives in the gitignored data file, not in this script.
+"""
+import json
+import os
 import re
 
 src = open("Hizmetin_Esaslari_RU_clean.md", encoding="utf-8").read()
+
+# Footnote citation map {N(int): text}; absent file -> keep markers as plain text.
+FN = {}
+if os.path.exists("footnotes.json"):
+    FN = {int(k): v for k, v in json.load(open("footnotes.json", encoding="utf-8")).items()}
 
 # Drop the hand-written front-matter block (title + source note + hr) — pandoc
 # generates a proper title page and TOC instead.
@@ -26,8 +39,12 @@ def renumber_part(t):
     return _ord_re.sub(f"РАЗДЕЛ {ORD[m.group(1)]}", t)
 
 
+FN_BLOCKQUOTE = re.compile(r"^> *(Сноск[аи]|[⁰¹²³⁴⁵⁶⁷⁸⁹])")  # inline citation lines
+
 out = []
 for line in src.splitlines():
+    if FN_BLOCKQUOTE.match(line):
+        continue                      # drop inline citation; re-emitted as footnote
     m = re.match(r"^## (.+)$", line)
     if not m:
         out.append(line)
@@ -41,10 +58,27 @@ for line in src.splitlines():
         out.append(f"### {t}")        # h3 = inline subhead (no break)
 out = "\n".join(out)
 
-# Unicode superscript digits (footnote markers ⁷¹/⁷²) -> pandoc ^N^ superscript,
-# so the PDF font renders them (PT Serif lacks U+2070–2079 glyphs).
+# Body superscript markers -> footnote references [^fnN] (real bottom-of-page
+# footnotes). Fall back to a plain ^N^ superscript if N has no citation.
 SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
-out = re.sub(r"[⁰¹²³⁴⁵⁶⁷⁸⁹]+", lambda m: "^" + m.group().translate(SUP) + "^", out)
+used = []
+
+
+def _marker(m):
+    n = int(m.group().translate(SUP))
+    if n in FN:
+        used.append(n)
+        return f"[^fn{n}]"
+    return "^" + m.group().translate(SUP) + "^"
+
+
+out = re.sub(r"[⁰¹²³⁴⁵⁶⁷⁸⁹]+", _marker, out)
+
+# Append footnote definitions for every referenced marker.
+if used:
+    defs = "\n\n" + "\n\n".join(f"[^fn{n}]: {FN[n]}" for n in sorted(set(used)))
+    out = out.rstrip() + "\n" + defs + "\n"
+missing = sorted(set(FN) - set(used))   # citations with no in-text marker (orphans)
 
 # Arabic runs -> raw-LaTeX \AR{...} so they render in the Arabic fallback font
 # (PT Serif has no Arabic block). Includes Arabic + supplement + diacritics.
@@ -58,3 +92,4 @@ parts = out.count("\n# ") + out.startswith("# ")
 chaps = out.count("\n## ")
 subs = out.count("\n### ")
 print(f"parts(h1)={parts}  chapters(h2)={chaps}  subheads(h3)={subs}")
+print(f"footnotes: {len(set(used))} referenced; orphan citations (no marker): {missing}")
